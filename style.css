@@ -1,0 +1,190 @@
+/* Algemene styling */
+body {
+    background-color: #007BFF; /* Blauwe achtergrondkleur */
+    color: white; /* Witte tekstkleur */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+/* Header styling */
+header {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.1); /* Semi-transparante witte achtergrond */
+    padding: 10px 20px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Lichte scheiding tussen header en content */
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+header nav {
+    margin-top: 10px;
+}
+
+header nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: bold;
+}
+
+header nav a:hover {
+    text-decoration: underline;
+}
+
+/* Main content styling */
+main {
+    background-color: rgba(255, 255, 255, 0.1); /* Semi-transparante achtergrond */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 800px;
+    text-align: left;
+    margin: 20px 0;
+}
+
+h2 {
+    color: white;
+    margin-bottom: 20px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+ul li {
+    margin: 10px 0;
+}
+
+ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px;
+    display: block;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+ul li a:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: rgba(255, 255, 255, 0.1); /* Semi-transparante achtergrond */
+}
+
+table th, table td {
+    padding: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: left;
+    color: white;
+}
+
+table th {
+    background-color: rgba(0, 0, 0, 0.2); /* Iets donkerder voor kopteksten */
+}
+
+table tr:hover {
+    background-color: rgba(0, 0, 0, 0.3); /* Highlight rij bij hover */
+}
+
+button {
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+button:hover {
+    background-color: #003d80;
+}
+
+/* Form styling */
+form {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+form div {
+    margin-bottom: 15px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: white;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+form input[type="text"]::placeholder,
+form input[type="email"]::placeholder,
+form input[type="password"]::placeholder {
+    color: #dddddd;
+}
+
+form button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #0056b3;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #003d80;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    main {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    header nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    header nav a {
+        margin-bottom: 5px;
+    }
+}

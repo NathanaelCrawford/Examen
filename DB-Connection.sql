@@ -34,7 +34,7 @@ FOREIGN KEY (permission_id) REFERENCES permissions(id),
 PRIMARY KEY(role_id, permission_id)
     );
 
--- Create Docenten Table (Note: "Docents" is "Docenten" in Dutch)
+-- Create Docenten Table
 CREATE TABLE IF NOT EXISTS docenten (
 id INT AUTO_INCREMENT PRIMARY KEY,
 user_id INT,
@@ -43,13 +43,13 @@ email VARCHAR(100) UNIQUE NOT NULL,
 FOREIGN KEY (user_id) REFERENCES users(id)
     );
 
--- Create Klassen Table (Note: "Classes" is "Klassen" in Dutch)
+-- Create Klassen Table
 CREATE TABLE IF NOT EXISTS klassen (
 id INT AUTO_INCREMENT PRIMARY KEY,
 class_name VARCHAR(100) UNIQUE NOT NULL
     );
 
--- Create Studenten Table (Note: "Students" is "Studenten" in Dutch)
+-- Create Studenten Table
 CREATE TABLE IF NOT EXISTS studenten (
 id INT AUTO_INCREMENT PRIMARY KEY,
 user_id INT,
@@ -60,7 +60,7 @@ FOREIGN KEY (user_id) REFERENCES users(id),
 FOREIGN KEY (class_id) REFERENCES klassen(id)
     );
 
--- Create Roosters Table (Note: "Rosters" is "Roosters" in Dutch)
+-- Create Roosters Table
 CREATE TABLE IF NOT EXISTS roosters (
 id INT AUTO_INCREMENT PRIMARY KEY,
 class_id INT,
@@ -72,7 +72,7 @@ FOREIGN KEY (class_id) REFERENCES klassen(id),
 FOREIGN KEY (created_by) REFERENCES users(id)
     );
 
--- Create MentorGesprekken Table (Note: "Conversations" is "Gesprekken" in Dutch)
+-- Create MentorGesprekken Table
 CREATE TABLE IF NOT EXISTS mentor_gesprekken (
 id INT AUTO_INCREMENT PRIMARY KEY,
 student_id INT,

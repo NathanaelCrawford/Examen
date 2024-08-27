@@ -4,7 +4,7 @@
 class DatabaseConnection
 {
     private $host = 'localhost';
-    private $dbname = 'Database';
+    private $dbname = 'schooldatabase';
     private $username = 'root';
     private $password = '';
     private $pdo;
@@ -42,6 +42,6 @@ $dbConnection = new DatabaseConnection();
 $pdo = $dbConnection->getPdo();
 
 if ($pdo) {
-    echo 'Verbinding succesvol!';
+    echo '<br>';
 }
 ?>
