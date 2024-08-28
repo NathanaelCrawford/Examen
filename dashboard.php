@@ -32,9 +32,9 @@ function displayTeacherDashboard() {
     echo '<h2>Docenten Dashboard</h2>';
     echo '<p>Welkom, ' . htmlspecialchars($_SESSION['username']) . '!</p>';
     echo '<ul>';
-    echo '<li><a href="view_classes.php">Bekijk Klassen</a></li>';
-    echo '<li><a href="manage_students.php">Beheer Studenten</a></li>';
+    echo '<li><a href="AdminFunctions/manage_students.php">Beheer Studenten</a></li>';
     echo '<li><a href="manage_subjects.php">Beheer Vakken</a></li>';
+    echo '<li><a href="AdminFunctions/manage_classes.php">Beheer Klassen</a></li>';
     echo '<li><a href="view_schedule.php">Bekijk Rooster</a></li>';
     echo '<li><a href="mentor_students.php">Mentor Gesprekken</a></li>';
     echo '</ul>';

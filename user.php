@@ -43,15 +43,16 @@ class User
     }
 
     // Methode om een nieuwe gebruiker aan te maken
-    public function createUser($username, $email, $password, $role_id)
+    public function createUser($username, $email, $password, $role_id, $class_id = null)
     {
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-        $stmt = $this->pdo->prepare("INSERT INTO users (username, email, password, role_id) VALUES (:username, :email, :password, :role_id)");
+        $stmt = $this->pdo->prepare("INSERT INTO users (username, email, password, role_id, class_id) VALUES (:username, :email, :password, :role_id, :class_id)");
         $stmt->bindParam(':username', $username);
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':password', $hashedPassword);
         $stmt->bindParam(':role_id', $role_id);
+        $stmt->bindParam(':class_id', $class_id);
 
         return $stmt->execute();
     }
@@ -65,12 +66,13 @@ class User
     }
 
     // Methode om gebruikersinformatie bij te werken
-    public function updateUser($user_id, $username, $email, $role_id)
+    public function updateUser($user_id, $username, $email, $role_id, $class_id = null)
     {
-        $stmt = $this->pdo->prepare("UPDATE users SET username = :username, email = :email, role_id = :role_id WHERE id = :id");
+        $stmt = $this->pdo->prepare("UPDATE users SET username = :username, email = :email, role_id = :role_id, class_id = :class_id WHERE id = :id");
         $stmt->bindParam(':username', $username);
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':role_id', $role_id);
+        $stmt->bindParam(':class_id', $class_id);
         $stmt->bindParam(':id', $user_id);
 
         return $stmt->execute();
@@ -86,7 +88,7 @@ class User
     // Methode om een lijst van alle studenten op te halen
     public function getAllStudents()
     {
-        $stmt = $this->pdo->query("SELECT * FROM users WHERE role_id = 4");
+        $stmt = $this->pdo->query("SELECT u.*, k.class_name FROM users u LEFT JOIN klassen k ON u.class_id = k.id WHERE u.role_id = 4");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -97,5 +99,12 @@ class User
         $stmt->bindParam(':id', $user_id);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    // Methode om een lijst van alle klassen op te halen
+    public function getAllClasses()
+    {
+        $stmt = $this->pdo->query("SELECT * FROM klassen");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

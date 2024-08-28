@@ -47,6 +47,7 @@ FOREIGN KEY (user_id) REFERENCES users(id)
 CREATE TABLE IF NOT EXISTS klassen (
 id INT AUTO_INCREMENT PRIMARY KEY,
 class_name VARCHAR(100) UNIQUE NOT NULL
+
     );
 
 -- Create Studenten Table
@@ -73,14 +74,16 @@ FOREIGN KEY (created_by) REFERENCES users(id)
     );
 
 -- Create MentorGesprekken Table
+
 CREATE TABLE IF NOT EXISTS mentor_gesprekken (
 id INT AUTO_INCREMENT PRIMARY KEY,
-student_id INT,
-mentor_id INT,
+student_id INT NOT NULL,
+mentor_id INT NOT NULL,
 conversation TEXT NOT NULL,
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-FOREIGN KEY (student_id) REFERENCES studenten(id),
-FOREIGN KEY (mentor_id) REFERENCES docenten(id)
+FOREIGN KEY (student_id) REFERENCES users(id),
+FOREIGN KEY (mentor_id) REFERENCES users(id),
+UNIQUE KEY unique_mentoring (student_id, mentor_id)
     );
 
 -- Insert Roles

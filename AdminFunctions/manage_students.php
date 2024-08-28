@@ -3,12 +3,14 @@ session_start();
 require_once '..\config.php';
 require_once '..\User.php';
 
+
 $db = new DatabaseConnection();
 $user = new User($db->getPdo());
 
-// Controleer of de gebruiker is ingelogd en een admin is
-if (!$user->isLoggedIn() || $user->getRoleId() != 1) {
-    header("Location: login.php");
+// Controleer of de gebruiker is ingelogd en een admin of ewen docent is
+if (!$user->isLoggedIn() || ($user->getRoleId() != 1 && $user->getRoleId() != 3)) {
+
+    header("Location: ../login.php");
     exit();
 }
 
@@ -43,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_student'])) {
     <h1>Beheer Studenten</h1>
     <nav>
         <a href="../dashboard.php">Terug naar Dashboard</a>
-        <a href="add_student.php">Voeg Nieuwe Student Toe</a> <!-- Link om een nieuwe student toe te voegen -->
+        <a href="add_student.php">Voeg Nieuwe Student Toe</a>
         <a href="../logout.php">Uitloggen</a>
     </nav>
 </header>
@@ -61,6 +63,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_student'])) {
         <tr>
             <th>Gebruikersnaam</th>
             <th>E-mailadres</th>
+            <th>Klas</th>
+            <th>Mentor</th>
             <th>Acties</th>
         </tr>
         </thead>
@@ -69,6 +73,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_student'])) {
             <tr>
                 <td><?php echo htmlspecialchars($student['username']); ?></td>
                 <td><?php echo htmlspecialchars($student['email']); ?></td>
+                <td><?php echo htmlspecialchars($student['class_name']); ?></td>
+                <td><?php echo htmlspecialchars($student['mentor_name'] ?? 'Geen mentor toegewezen'); ?></td>
                 <td>
                     <a href="edit_student.php?id=<?php echo $student['id']; ?>">Bewerk</a> |
                     <form method="POST" action="manage_students.php" style="display:inline;">
