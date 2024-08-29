@@ -6,11 +6,13 @@ require_once '..\User.php';
 $db = new DatabaseConnection();
 $user = new User($db->getPdo());
 
-// Controleer of de gebruiker is ingelogd en een admin is
-if (!$user->isLoggedIn() || $user->getRoleId() != 1) {
+
+// Controleer of de gebruiker is ingelogd en een admin of docent is
+if (!$user->isLoggedIn() || ($user->getRoleId() != 1 && $user->getRoleId() != 3)) {
     header("Location: login.php");
     exit();
 }
+
 
 $error = '';
 $success = '';

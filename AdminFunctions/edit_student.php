@@ -6,9 +6,10 @@ require_once '../User.php';
 $db = new DatabaseConnection();
 $user = new User($db->getPdo());
 
-// Controleer of de gebruiker is ingelogd en een admin is
-if (!$user->isLoggedIn() || $user->getRoleId() != 1) {
-    header("Location: ../login.php");
+
+// Controleer of de gebruiker is ingelogd en een admin of docent is
+if (!$user->isLoggedIn() || ($user->getRoleId() != 1 && $user->getRoleId() != 3)) {
+    header("Location: login.php");
     exit();
 }
 
@@ -56,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <header>
     <h1>Bewerk Student</h1>
     <nav>
-        <a href="../manage_students.php">Terug naar Beheer Studenten</a>
+        <a href="manage_students.php">Terug naar Beheer Studenten</a>
         <a href="../logout.php">Uitloggen</a>
     </nav>
 </header>

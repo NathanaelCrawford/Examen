@@ -57,6 +57,7 @@ class User
         return $stmt->execute();
     }
 
+
     // Methode om een gebruiker te verwijderen
     public function deleteUser($user_id)
     {
@@ -77,6 +78,7 @@ class User
 
         return $stmt->execute();
     }
+
 
     // Methode om een lijst van alle docenten op te halen
     public function getAllTeachers()
