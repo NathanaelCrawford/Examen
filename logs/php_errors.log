@@ -5,3 +5,9 @@
 [30-Aug-2024 15:29:53 UTC] PHP Warning:  include(): Failed opening 'db.php' for inclusion (include_path='.;C:\php\pear') in C:\xampp\htdocs\test2\Examen\rooster\fetch_schedule.php on line 52
 [30-Aug-2024 15:57:01 UTC] Error fetching schedule: No schedule found for class ID: 2
 [30-Aug-2024 15:59:27 UTC] Error fetching schedule: No schedule found for class ID: 2
+[30-Aug-2024 16:31:51 UTC] Error fetching schedule: No schedule found for class ID: 2
+[30-Aug-2024 16:31:52 UTC] Error fetching schedule: No schedule found for class ID: 1
+[30-Aug-2024 16:32:15 UTC] Error fetching schedule: No schedule found for class ID: 2
+[30-Aug-2024 16:40:48 UTC] Error fetching schedule: No schedule found for class ID: 2
+[30-Aug-2024 16:45:46 UTC] Error fetching schedule: No schedule found for class ID: 2
+[30-Aug-2024 16:50:57 UTC] Error fetching schedule: No schedule found for class ID: 2

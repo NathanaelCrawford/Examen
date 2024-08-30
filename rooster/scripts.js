@@ -1,9 +1,9 @@
 $(document).ready(function() {
     let currentCell; // To keep track of the currently selected schedule slot
 
+    // Handle class selection change
     $('#class-select').change(function() {
         var class_id = $(this).val();
-        console.log('Selected class ID:', class_id);  // Log the class_id to the console
         if (class_id) {
             loadSchedule(class_id);
             $('#schedule-container').show();
@@ -13,9 +13,6 @@ $(document).ready(function() {
     });
 
     function loadSchedule(class_id) {
-        console.log('Fetching schedule for class ID:', class_id); // Debugging log
-
-        // Clear the current schedule before loading the new one
         $('#schedule-table tbody td.schedule-slot').each(function() {
             $(this).find('.schedule-content').html('');
             $(this).removeData('subject-id');
@@ -28,7 +25,6 @@ $(document).ready(function() {
                 if (data.error) {
                     console.error('Error:', data.error);
                 } else {
-                    console.log('Schedule data:', data); // Log fetched schedule data for debugging
                     data.forEach(entry => {
                         var cell = $('td.schedule-slot[data-day="' + entry.day + '"][data-time="' + entry.time_slot + '"]');
                         cell.find('.schedule-content').html('<strong>' + entry.subject_name + '</strong><br>' + entry.teacher_name);
@@ -44,44 +40,40 @@ $(document).ready(function() {
 
     // Open the modal when a schedule slot is clicked
     $('.schedule-slot').click(function() {
-        currentCell = $(this); // Store the current cell
+        currentCell = $(this);
         var day = currentCell.data('day');
         var timeSlot = currentCell.data('time');
         var class_id = $('#class-select').val();
 
-        // Set the hidden fields with the day and time
         $('#modal-day').val(day);
         $('#modal-time').val(timeSlot);
         $('#modal-class-id').val(class_id);
 
-        // Load existing data into modal if available
         var subject_id = currentCell.data('subject-id');
         var teacher_id = currentCell.data('teacher-id');
         $('#subject-select').val(subject_id);
         $('#teacher-select').val(teacher_id);
 
-        // Check teacher availability and disable unavailable options
         checkTeacherAvailability(day, timeSlot);
 
-        // Show the modal
         $('#modal').show();
     });
 
     // Event listener for the close button
     $('.close').click(function() {
-        $('#modal').hide(); // Close the modal
+        $('#modal').hide();
     });
 
-    // Optional: Close the modal if the user clicks outside the modal content
+    // Close the modal if the user clicks outside the modal content
     $(window).click(function(event) {
         if (event.target.id === 'modal') {
-            $('#modal').hide(); // Close the modal
+            $('#modal').hide();
         }
     });
 
     // Handle form submission and auto-save the schedule
     $('#modal-form').submit(function(event) {
-        event.preventDefault(); // Prevent the form from submitting normally
+        event.preventDefault();
 
         var subject_id = $('#subject-select').val();
         var teacher_id = $('#teacher-select').val();
@@ -91,15 +83,12 @@ $(document).ready(function() {
         var subject_name = $('#subject-select option:selected').text();
         var teacher_name = $('#teacher-select option:selected').text();
 
-        // Update the current cell with new data
         currentCell.find('.schedule-content').html('<strong>' + subject_name + '</strong><br>' + teacher_name);
         currentCell.data('subject-id', subject_id);
         currentCell.data('teacher-id', teacher_id);
 
-        // Auto-save the updated schedule
         saveSchedule(day, timeSlot, subject_id, teacher_id);
 
-        // Close the modal
         $('#modal').hide();
     });
 
@@ -109,15 +98,12 @@ $(document).ready(function() {
         var timeSlot = $('#modal-time').val();
         var class_id = $('#modal-class-id').val();
 
-        // Clear the content of the cell
         currentCell.find('.schedule-content').html('');
         currentCell.removeData('subject-id');
         currentCell.removeData('teacher-id');
 
-        // Remove the schedule entry from the database
         deleteSchedule(class_id, day, timeSlot);
 
-        // Close the modal
         $('#modal').hide();
     });
 
@@ -200,6 +186,11 @@ $(document).ready(function() {
                         teacherOptions += `<option value="${teacher.id}">${teacher.username}</option>`;
                     });
                     $('#teacher-select').html(teacherOptions);
+
+                    // Call check availability to disable options based on availability
+                    const day = $('#modal-day').val();
+                    const timeSlot = $('#modal-time').val();
+                    checkTeacherAvailability(day, timeSlot);
                 } else {
                     $('#teacher-select').html('<option value="">No teachers assigned</option>');
                 }
@@ -210,10 +201,8 @@ $(document).ready(function() {
             });
     }
 
-    // Function to check teacher availability
+    // Function to check teacher availability and manage disabled state
     function checkTeacherAvailability(day, timeSlot) {
-        console.log('Checking availability for day:', day, 'timeSlot:', timeSlot);
-
         fetch('check_teacher_availability.php', {
             method: 'POST',
             headers: {
@@ -226,21 +215,19 @@ $(document).ready(function() {
         })
         .then(response => response.json())
         .then(data => {
-            console.log('Received data:', data);
             if (data.success) {
+                const unavailableIDs = data.unavailable_teachers.map(id => id.toString());
+
+                // Loop through each teacher option in the dropdown
                 $('#teacher-select option').each(function() {
-                    var teacher_id = $(this).val(); // Get the teacher ID from the option
-                    console.log('Checking teacher ID:', teacher_id, 'against unavailable IDs:', data.unavailable_teachers);
+                    const teacher_id = $(this).val(); // Get the teacher ID from the option
 
-                    // Convert everything to the same type (string)
-                    teacher_id = teacher_id.toString();
-                    const unavailableIDs = data.unavailable_teachers.map(id => id.toString());
-
+                    // Disable the option if the teacher is unavailable
                     if (unavailableIDs.includes(teacher_id)) {
-                        $(this).attr('disabled', 'disabled');
+                        $(this).attr('disabled', true).addClass('disabled-option');
                         console.log('Disabling teacher ID:', teacher_id);
                     } else {
-                        $(this).removeAttr('disabled');
+                        $(this).removeAttr('disabled').removeClass('disabled-option');
                         console.log('Enabling teacher ID:', teacher_id);
                     }
                 });
@@ -252,4 +239,16 @@ $(document).ready(function() {
             console.error('Error checking teacher availability:', error);
         });
     }
+
+    // Prevent the selection of disabled options when the dropdown is clicked
+    $('#teacher-select').on('mousedown', function(e) {
+        $(this).find('option:disabled').each(function() {
+            // Prevent clicking on disabled options
+            if ($(this).is(':selected')) {
+                e.preventDefault();
+            }
+        });
+    });
+
+    // Other modal handling code...
 });

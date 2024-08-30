@@ -62,4 +62,11 @@ body {
     color: black;
     text-decoration: none;
     cursor: pointer;
+    
 }
+/* Style for greyed-out disabled options */
+.disabled-option {
+    color: #999; /* Grey color */
+    pointer-events: none; /* Prevent interaction */
+}
+
