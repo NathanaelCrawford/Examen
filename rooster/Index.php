@@ -34,8 +34,9 @@ for ($i = 0; $i < 5; $i++) {
     <title>School Schedule</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body style="background-color: #007BFF;">
     <div class="container">
+        <a href="../dashboard.php" class="btn-back">Terug naar Dashboard</a>
         <h1>School Schedule</h1>
 
         <label for="class-select">Select a class:</label>
@@ -98,7 +99,7 @@ for ($i = 0; $i < 5; $i++) {
                 <input type="hidden" id="modal-day" name="day">
                 <input type="hidden" id="modal-time" name="time_slot">
                 <button type="submit">Save</button>
-                <button type="button" id="delete-schedule-btn" class="remove-btn">Remove</button> <!-- Add Remove button -->
+                <button type="button" id="delete-schedule-btn" class="remove-btn">Remove</button>
             </form>
         </div>
     </div>

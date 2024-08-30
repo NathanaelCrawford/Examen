@@ -35,9 +35,12 @@ function displayTeacherDashboard() {
     echo '<li><a href="AdminFunctions/manage_students.php">Beheer Studenten</a></li>';
     echo '<li><a href="AdminFunctions/manage_subjects.php">Beheer Vakken</a></li>';
     echo '<li><a href="AdminFunctions/manage_classes.php">Beheer Klassen</a></li>';
-    echo '<li><a href="view_schedule.php">Bekijk Rooster</a></li>';
+    echo '<li><a href="rooster/view_schedule.php">Bekijk Rooster</a></li>';
     echo '<li><a href="mentor_students.php">Mentor Gesprekken</a></li>';
     echo '<li><a href="AdminFunctions/assign_subjects.php">subjects</a></li>';
+    echo '<li><a href="AdminFunctions/colleagues.php">collegas</a></li>';
+    echo '<li><a href="AdminFunctions/edit_profiles.php">edit info</a></li>';
+    echo '<li><a href="AdminFunctions/assign_mentor.php">mentor worden</a></li>';
     echo '</ul>';
 }
 

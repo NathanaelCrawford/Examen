@@ -3,13 +3,11 @@ session_start();
 require_once '..\config.php';
 require_once '..\User.php';
 
-
 $db = new DatabaseConnection();
 $user = new User($db->getPdo());
 
-// Controleer of de gebruiker is ingelogd en een admin of ewen docent is
+// Controleer of de gebruiker is ingelogd en een admin of een docent is
 if (!$user->isLoggedIn() || ($user->getRoleId() != 1 && $user->getRoleId() != 3)) {
-
     header("Location: ../login.php");
     exit();
 }
@@ -71,9 +69,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_student'])) {
         <tbody>
         <?php foreach ($students as $student): ?>
             <tr>
-                <td><?php echo htmlspecialchars($student['username']); ?></td>
-                <td><?php echo htmlspecialchars($student['email']); ?></td>
-                <td><?php echo htmlspecialchars($student['class_name']); ?></td>
+                <td><?php echo htmlspecialchars($student['username'] ?? ''); ?></td>
+                <td><?php echo htmlspecialchars($student['email'] ?? ''); ?></td>
+                <td><?php echo htmlspecialchars($student['class_name'] ?? ''); ?></td>
                 <td><?php echo htmlspecialchars($student['mentor_name'] ?? 'Geen mentor toegewezen'); ?></td>
                 <td>
                     <a href="edit_student.php?id=<?php echo $student['id']; ?>">Bewerk</a> |
