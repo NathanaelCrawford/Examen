@@ -23,17 +23,27 @@ if (!isset($_GET['subject_id'])) {
 $subject_id = $_GET['subject_id'];
 
 try {
-    // Fetch the teacher assigned to the selected subject from the subjects table
-    $stmt = $pdo->prepare("
-        SELECT u.id, u.username 
-        FROM users u
-        JOIN subjects s ON u.id = s.teacher_id
-        WHERE s.id = ? AND u.role_id = 3
-    ");
+    // Fetch the teacher IDs assigned to the selected subject from the subjects table
+    $stmt = $pdo->prepare("SELECT teacher_id FROM subjects WHERE id = ?");
     $stmt->execute([$subject_id]);
+    $teacher_ids = $stmt->fetchColumn();
+
+    if (empty($teacher_ids)) {
+        ob_end_clean();
+        echo json_encode(['success' => true, 'teachers' => []]); // Return an empty list if no teachers are assigned
+        exit;
+    }
+
+    // Convert the comma-separated teacher IDs into an array and prepare for the query
+    $teacher_ids_array = array_map('intval', explode(',', $teacher_ids));
+
+    // Fetch all teachers based on the IDs in the array
+    $placeholders = implode(',', array_fill(0, count($teacher_ids_array), '?'));
+    $stmt = $pdo->prepare("SELECT id, username FROM users WHERE id IN ($placeholders) AND role_id = 3");
+    $stmt->execute($teacher_ids_array);
     $teachers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Clean the buffer and return the list of teachers without applying any disabled state
+    // Clean the buffer and return the list of teachers
     ob_end_clean();
     echo json_encode(['success' => true, 'teachers' => $teachers]);
 } catch (PDOException $e) {
