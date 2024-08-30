@@ -1,0 +1,7 @@
+[30-Aug-2024 15:12:56 UTC] Error fetching schedule: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'schooldatabase.schedule' doesn't exist
+[30-Aug-2024 15:15:02 UTC] Error fetching schedule: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'schooldatabase.rooster' doesn't exist
+[30-Aug-2024 15:15:04 UTC] Error fetching schedule: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'schooldatabase.rooster' doesn't exist
+[30-Aug-2024 15:29:53 UTC] PHP Warning:  include(db.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\test2\Examen\rooster\fetch_schedule.php on line 52
+[30-Aug-2024 15:29:53 UTC] PHP Warning:  include(): Failed opening 'db.php' for inclusion (include_path='.;C:\php\pear') in C:\xampp\htdocs\test2\Examen\rooster\fetch_schedule.php on line 52
+[30-Aug-2024 15:57:01 UTC] Error fetching schedule: No schedule found for class ID: 2
+[30-Aug-2024 15:59:27 UTC] Error fetching schedule: No schedule found for class ID: 2

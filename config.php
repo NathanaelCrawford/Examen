@@ -1,4 +1,3 @@
-
 <?php
 
 class DatabaseConnection
@@ -32,8 +31,8 @@ class DatabaseConnection
 
     private function handleError($message)
     {
-        //
-        die('Verbinding niet gelukt: ' . $message);
+        // Handle connection errors
+        die('Verbinding niet gelukt: ' . $message); // This will stop script execution and output the error
     }
 }
 
@@ -41,7 +40,8 @@ class DatabaseConnection
 $dbConnection = new DatabaseConnection();
 $pdo = $dbConnection->getPdo();
 
-if ($pdo) {
-    echo '<br>';
-}
+// i commented this out to avoid accidental HTML output
+// if ($pdo) {
+//     echo '<br>';
+// }
 ?>

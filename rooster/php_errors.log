@@ -1,0 +1,2 @@
+[30-Aug-2024 15:09:51 UTC] Error fetching schedule: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'schooldatabase.schedule' doesn't exist
+[30-Aug-2024 15:10:04 UTC] Error fetching schedule: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'schooldatabase.schedule' doesn't exist
